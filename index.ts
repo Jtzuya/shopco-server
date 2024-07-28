@@ -14,7 +14,7 @@ const app = express()
 const port = 3001
 
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_DEVELOPMENT : process.env.FRONTEND_PRODUCTION
+  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_PRODUCTION : process.env.FRONTEND_DEVELOPMENT
 }))
 
 app.use(express.json())
