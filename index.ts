@@ -1,37 +1,23 @@
 import express, {type Request, type Response} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import short from 'short-uuid'
-import multer from 'multer'
+// import short from 'short-uuid'
 import supabase from './database'
 
 import Product from './Product'
 import GetErrorMessage from './GetErrorMessage'
-import { PutObjectCommandData, S3 } from './s3'
+import { S3 } from './s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 
 const app = express()
 const port = 3001
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/uploads')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
-  }
-})
-
-const upload = multer({ storage: storage })
-
 app.use(cors({
-  origin: process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:5173' : ''
+  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_DEVELOPMENT : process.env.FRONTEND_PRODUCTION
 }))
 
 app.use(express.json())
-// app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/collection/:collection_name', async(req: Request, res: Response) => {

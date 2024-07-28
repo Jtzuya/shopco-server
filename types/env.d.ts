@@ -8,6 +8,8 @@ declare namespace NodeJS {
     CLOUDFLARE_ACCESS_KEY: string;
     CLOUDFLARE_ACCOUNT_ID: string;
     CLOUDFLARE_R2_BUCKET_NAME: string;
+    FRONTEND_DEVELOPMENT: string;
+    FRONTEND_PRODUCTION: string;
     // Add more environment variables as needed
   }
 }
