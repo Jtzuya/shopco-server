@@ -23,6 +23,7 @@ class CollectionProductsById {
   execute = async (req: Request, res: Response) => {
     try {
       const { collection_id } = req.params
+      console.log("request incoming to get collection products using collection id ", collection_id)
       if (!collection_id) throw new Error(`Collection of id ${collection_id} is invalid`)
       
       const collection = await this.collection(collection_id)
