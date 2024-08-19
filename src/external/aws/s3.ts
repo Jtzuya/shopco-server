@@ -50,7 +50,7 @@ export async function getObject(key: string) {
     }
 
     const cmd = new GetObjectCommand(input)
-    const url = await getSignedUrl(S3Instance, cmd, { expiresIn: 3600 });
+    const url = await getSignedUrl(S3Instance, cmd, { expiresIn: 3600 * 24 * 3 });
     // const url = await getSignedUrl(S3, cmd, { expiresIn: 3600 * 24 }); // expires in 24 hour
     // const url = await getSignedUrl(S3, cmd, { expiresIn: 3600 }); // expires in 1 hour
     // const url = await getSignedUrl(S3, cmd, { expiresIn: 60 * 30 }); // expires in 30 minutes
@@ -70,7 +70,7 @@ export async function putObject(key: string, size: number, type: string) {
       ContentType: type,
     })
 
-    const url = await getSignedUrl(S3Instance, cmd, { expiresIn: 3600 * 24 * 3 });
+    const url = await getSignedUrl(S3Instance, cmd, { expiresIn: 3600 });
     return url
   } catch (error) {
     return GetErrorMessage(error)
